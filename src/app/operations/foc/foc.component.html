@@ -1,0 +1,141 @@
+<div class="containerCustom">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)" title="New">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <span class="hdrlbl">FOC</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <input class="form-control" type="text" placeholder="Search by Client">
+            </div>
+          </div>
+          <div class="col-xs-12">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+<th>FOC Detail</th>
+<th>Client</th>
+<th>Last Updated</th>
+<th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BMC Parking</td>
+          <td>Bhopal Smart Parking</td>
+          <td>11/03/2019</td>
+          <td>
+            <a (click)="openModalWithClassEdit(template)" title="edit" class="grideditbtn">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </a>
+            &nbsp;
+            <a (click)="openModalWIthClassDelete(templatedelete)" title="delete" class="grideditbtn">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+       </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+</div>
+
+
+<!-- modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create FOC</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="container-fluid">
+              <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="ddlfoc">FOC Type</label><sup class="lblMandatory">*</sup>
+            <select class="form-control" id="ddlfoc" >
+              <option value="0">Select Type</option>
+              <option>
+BMC
+              </option>
+              <option>
+               Customer unwilling to pay
+                              </option>
+            </select>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="form-group">
+      <label for="ddlclient">Client</label><sup class="lblMandatory">*</sup>
+      <select class="form-control" id="ddlclient" >
+        <option value="0">Select Client</option>
+        <option>
+BSP Smart Parking
+        </option>
+        <option>
+      Mindteck Smart Parking
+                        </option>
+                        <option>
+                          Bhopal Smart Parking
+                                            </option>
+                        
+      </select>
+</div>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="form-group">
+      <label for="txtfocdetail">FOC Detail</label><sup class="lblMandatory">*</sup>                                    
+      <input type="text" class="form-control" id="txtfocdetail"  placeholder="FOC detail">
+  </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="SaveFOC()" *ngIf="mode==1">Save</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateFOC()" *ngIf="mode==2">Update</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
+
+ <!--delete modal -->
+ <ng-template #templatedelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete FOC</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label for="usr">Are you sure you want to delete this FOC?
+     
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteCity()">Delete</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>

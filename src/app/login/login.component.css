@@ -1,0 +1,133 @@
+
+form {
+    position: relative;
+    width: 350px;
+    margin: 0 45px;
+    background: rgba(0, 0, 0, 0.75);;
+    padding: 32px 24px;
+  }
+  
+  form input{
+    width: 300px;
+    background-color: rgba(0,0,0,.2);
+    background-repeat: no-repeat;
+    padding: 8px 24px 8px 10px;
+    font: bold .875em/1.25em "Open Sans Condensed", sans-serif;
+    letter-spacing: .075em;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    margin-bottom: 19px;
+  }
+    form button {
+    width: 300px;
+    background-repeat: no-repeat;
+    padding: 8px 24px 8px 10px;
+    font: bold .875em/1.25em "Open Sans Condensed", sans-serif;
+    letter-spacing: .075em;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    margin-bottom: 19px;
+  }
+  
+  form input:focus { background-color: rgba(0,0,0,.4); }
+  
+  form input.email {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIFdpbmRvd3MiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0YwNDIzMTQ3QzIzMTFFMjg3Q0VFQzhDNTgxMTRCRTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0YwNDIzMTU3QzIzMTFFMjg3Q0VFQzhDNTgxMTRCRTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozRjA0MjMxMjdDMjMxMUUyODdDRUVDOEM1ODExNEJFNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozRjA0MjMxMzdDMjMxMUUyODdDRUVDOEM1ODExNEJFNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsOChsgAAADUSURBVHjaYvz///9JBgYGMwbSwSkGoOafQPwKiAOBmIEIHAXED0H6QJwPQGwAxE+AOJOAxnwgvgfEKiB9MM0gWg6IbwNxIw6NXUB8HogloHwUzSAsBAoDIJ4DxMxQMRA9H4gPADE/kloMzSCsBcR/gHgj1LAt0HBRR1P3gQktBA2AeBcQZwHxCyB+AsT3gTgFKq6FohrJZnssoW6AxPaDBqoZurP9oBrtCYS2ExA/h9JgzX+gAsZExrMZVP0fmGZ1IjWiBCoL0NsXgPgGGcnzLECAAQD5y8iZ2Z69IwAAAABJRU5ErkJggg==);
+    background-position: 220px 10px;
+  }
+  .logo{
+    margin-top: -42px;
+    height: 80px;
+    width: 195px;
+    margin-left: 53px;
+  }
+  .logo1{
+    margin-top: -6px;
+    height: 33px;
+    width: 96px;
+    margin-left: 123px;
+
+  }
+  a{
+    color: white;
+    margin-right: 0rem;
+  }
+  a[_ngcontent-c2].forgot{
+    margin-right: 0rem;
+    margin-top: -10px; 
+    float: right;
+}
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+    padding: .5rem .5rem;
+}
+.card {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+  .inventory-body {
+    position: fixed;
+    min-width: 100%;
+    background-image: url("/assets/parking 3.jpg");
+    /* background-image: url("https://spsrv001.mindteck.com/SmartParking/UI/assets/parking 3.jpg");  */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    background-size: cover;
+    color: white
+    }
+.mtlogo{
+    height: 25%;
+    width: 20%;
+}
+ .py-5
+   {
+    padding-top: 7rem!important;
+}
+.danger{
+    background-color:#B2B2B2;
+    color: #FFFFFF;
+}
+.mindteck-green-color{
+    background-color: #004E41;
+    color: #FFFFFF;
+    }
+    .custom{
+    padding: 0.25rem 4.25rem;
+    margin-bottom: 1rem;
+    }
+    .list-style {
+        list-style-type: none;
+    }
+    ul{
+        display: flex;
+        justify-content: flex-end;
+      }
+    .fRight{
+        margin: 0;
+        float: right;
+    }
+    .Fleft{
+        margin-left: 200px;
+    }
+    li{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    }
+    a{      
+        margin-right: 1rem;
+    }
+  .footer-copyright .text-center {
+      background-color: white!important;
+ }
+ .footer-copyright {
+     background-color: #333333!important;
+     color: white;
+     padding: 2px;
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     float: left;
+ }

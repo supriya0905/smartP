@@ -1,0 +1,208 @@
+<div class="containerCustom">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)"
+          title="New">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <span class="hdrlbl">Camera Slot</span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <input class="form-control" type="text" placeholder="Search by name/role/email" [(ngModel)]="cfilter"
+          (keyup)="GetUserByFilterOption()">
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Client Location</th>
+              <th>Zone</th>
+              <th>Camera</th>
+              <th>Slot Name</th>
+              <th>Created by</th>
+              <th>Created on</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mindteck Smart Parking</td>
+              <td>AMR Tech PArk</td>
+              <td>zone name</td>
+              <td>CAM 08</td>
+              <td>D1001</td>
+              <td>Pradeep.bhat@mindteck.com</td>
+              <td>30/04/2019</td>
+              <td>
+                <a (click)="openModalWithClassEdit(template)" title="edit" class="grideditbtn">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                &nbsp;
+                <a (click)="openModalWIthClassDelete(templatedelete)" title="delete" class="grideditbtn">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+        </table>
+      </div>
+      <!--end of .table-responsive-->
+    </div>
+    <div class="row row_color" *ngIf="TotalCount > 0">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+        <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllUserByPageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)"
+              title="First">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)"
+              title="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)"
+              title="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)"
+              title="Last">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create Camera Slot
+    </h4>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="ddlClient">Client</label><sup class="lblMandatory">*</sup>
+            <select class="form-control" id="ddlClient">
+              <option value="MindteckSmartParking">Mindteck SmartParking</option>
+              <option value="BhopalSmartParking">Bhopal SmartParking </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="ddlClientLoc">Client Location</label><sup class="lblMandatory">*</sup>
+            <select class="form-control" id="ddlClientLoc">
+              <option value="loc">loc 1</option>
+              <option value="loc">loc 2 </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="ddlZone">Zone</label><sup class="lblMandatory">*</sup>
+            <select class="form-control" id="ddlZone">
+              <option value="Zone">Zone 1</option>
+              <option value="Zone">zone 2 </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="ddlCamera">Camera</label><sup class="lblMandatory">*</sup>
+            <select class="form-control" id="ddlCamera">
+              <option value="Camera">Camera 1</option>
+              <option value="Camera">Camera 2 </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="txtSlot">Slot</label><sup class="lblMandatory">*</sup>
+            <input type="text" class="form-control" id="txtSlot" placeholder="Slot">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="SaveUser()">Save</button>
+    <!-- <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateUser()">Update</button> -->
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
+
+<!--delete modal -->
+<ng-template #templatedelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete User</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label for="usr">Are you sure to delete user
+            <b>{{UName}}</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteUser()">Delete</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>

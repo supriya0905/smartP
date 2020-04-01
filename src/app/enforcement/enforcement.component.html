@@ -1,0 +1,89 @@
+<main *ngIf="luser.ParkingTypes.length==1" >
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                        selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+</main>
+<main *ngIf="luser.ParkingTypes.length==2">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+      
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">{{luser.ParkingTypes[1].datatext}}</label>
+      
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                        selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+      
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Ticketing App'">
+                        selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+</main>
+<main *ngIf="luser.ParkingTypes.length==3">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+      
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">{{luser.ParkingTypes[1].datatext}}</label>
+      
+        <input id="tab3" type="radio" name="tabs">
+        <label for="tab3">{{luser.ParkingTypes[2].datatext}}</label>
+      
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+      
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Ticketing App'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Camera'">
+                <app-camera-enforcement></app-camera-enforcement>
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Sensor'">
+                selected tab is {{luser.ParkingTypes[2].datatext}}
+        </section>
+
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Ticketing App'">
+                selected tab is {{luser.ParkingTypes[2].datatext}}
+        </section>
+        
+</main>
+
+

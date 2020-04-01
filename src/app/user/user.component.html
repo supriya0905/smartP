@@ -1,0 +1,215 @@
+<div class="containerCustom">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)" title="New">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <span class="hdrlbl">Users</span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <input class="form-control" type="text" placeholder="Search by name/role/email" [(ngModel)]="cfilter" (keyup)="GetUserByFilterOption()">
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th *ngFor="let ch of CustomHeader; index as i;">
+                <div *ngIf="ch.IsSortable==true">
+                  {{ch.ColumnNameLabel}}
+                  <span class="spnRight">
+                    <a (click)="SortColumn(ch.ColumnName,ch.ColumnSortClass,this.i)">
+                      <i [ngClass]="ch.ColumnSortClass" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </div>
+                <div *ngIf="ch.IsSortable==false">
+                  {{ch.ColumnNameLabel}}
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usr of Users">
+              <td>{{usr.fullname}}</td>
+              <td>{{usr.userroles}}</td>
+              <td>{{usr.email}}</td>
+              <td>{{usr.phone}}</td>
+              <td>{{usr.gender}}</td>
+              <td>{{usr.location}}</td>
+              <td>{{usr.createdby}}</td>
+              <td>{{usr.datestring | date:"dd/MM/yyyy"}}</td>
+              <td>
+                <a (click)="openModalWithClassEdit(template,usr.userid)" title="edit" class="grideditbtn">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                &nbsp;
+                <a (click)="openModalWIthClassDelete(templatedelete,usr.userid,usr.fullname)" title="delete" class="grideditbtn">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+        </table>
+      </div>
+      <!--end of .table-responsive-->
+    </div>
+    <div class="row row_color" *ngIf="TotalCount > 0">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+        <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllUserByPageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)"
+              title="First">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)"
+              title="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)"
+              title="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)"
+              title="Last">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{UserModalLabel}}
+    </h4>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="txtUserName">UserName/Email</label>
+          <sup class="lblMandatory">*</sup>
+          <input *ngIf="mode==1" type="text" class="form-control" id="txtUserName" [(ngModel)]="UserDetail.username" placeholder="UserName/Email">
+          <input *ngIf="mode==2" type="text" class="form-control" id="txtUserName" [(ngModel)]="UserDetail.username" placeholder="UserName/Email"
+            disabled>
+
+        </div>
+        <div class="form-group">
+          <label for="txtFirstName">First Name</label>
+          <sup class="lblMandatory">*</sup>
+          <input type="text" class="form-control" id="txtFirstName" placeholder="First Name" [(ngModel)]="UserDetail.firstname">
+        </div>
+        <div class="form-group">
+          <label for="txtLastName">Last Name</label>
+          <input type="text" class="form-control" id="txtLastName" placeholder="Last Name" [(ngModel)]="UserDetail.lastname">
+        </div>
+
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="txtPhone">Phone/Mobile Number</label>
+          <input type="text" class="form-control" id="txtPhone" placeholder="Phone or Mobile" [(ngModel)]="UserDetail.phone">
+        </div>
+        <div class="form-group">
+          <label for="ddlGender">Gender</label>
+          <sup class="lblMandatory">*</sup>
+          <select class="form-control" id="ddlGender" [(ngModel)]="UserDetail.gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Transgender">Transgender</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <b>Roles</b>
+        <sup class="lblMandatory">*</sup>
+        <hr>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngFor="let ur of UserDetail.roles">
+        <label>
+          <input type="checkbox" [(ngModel)]="ur.isassign" />&nbsp;{{ur.rolename}}</label>
+
+      </div>
+    </div>
+    note&nbsp;:-&nbsp;
+    <small>field marked as (
+      <span class="lblMandatory">*</span>) are mandatory</small>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="SaveUser()" *ngIf="mode==1">Save</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateUser()" *ngIf="mode==2">Update</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
+
+<!--delete modal -->
+<ng-template #templatedelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete User</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label for="usr">Are you sure to delete user
+            <b>{{UName}}</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteUser()">Delete</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>

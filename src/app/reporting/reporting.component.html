@@ -1,0 +1,189 @@
+<div class="containerCustom">
+  <div class="card shadow rounded">
+    <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="client"> Client</label>
+            <select class="form-control" formControlName="clid" [(ngModel)]="clid" (change)="ClientChange()">
+              <option value="0">Select Client</option>
+              <option *ngFor="let item of Clients" value={{item.datavalue}}>
+                {{item.datatext}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="client"> Location</label>
+            <select class="form-control" formControlName="clocid" [(ngModel)]="clocid">
+              <option value="0">Select Location</option>
+              <option *ngFor="let item of Locations" value={{item.datavalue}}>
+                {{item.datatext}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="mob">Mode of Booking</label>
+            <select class="form-control" formControlName="btype" [(ngModel)]="btype">
+              <option *ngFor="let item of BookingTypes" value={{item.datavalue}}>
+                {{item.datatext}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="vehicle">Vehicle Type</label>
+            <select class="form-control" formControlName="vtype" [(ngModel)]="vtype">
+              <option value="0">All</option>
+              <option *ngFor="let item of VehicleTypes" value={{item.datavalue}}>
+                {{item.datatext}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="txtCIN">Checked In Date</label>
+            <sup class="lblMandatory">*</sup>
+            <input class="form-control" type="text" placeholder="dd-mm-yyyy" formControlName="sdate"  [(ngModel)]="sdate"
+              #dpDMY="bsDatepicker" bsInlineValue="bsInlineValue" bsDatepicker [minDate]="minDate" [maxDate]="maxDate" 
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [ngClass]="{ 'is-invalid': submitted && f.sdate.errors}"
+              required>
+            <div *ngIf="submitted && f.sdate.errors" class="invalid-feedback">
+              <div *ngIf="f.sdate.errors.required">Checkin date is required</div>
+            </div>
+            <!-- <h6 class="help-block text-danger">{{msg}}</h6> -->
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="txtOUT">Checked Out Date</label>
+            <sup class="lblMandatory">*</sup>
+            <input class="form-control" type="text" placeholder="dd-mm-yyyy" formControlName="edate"  [(ngModel)]="edate"
+              #dpDMY="bsDatepicker" bsInlineValue="bsInlineValue" bsDatepicker [minDate]="minDate" [maxDate]="maxDate"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',selectWeek: 'false' }" [ngClass]="{ 'is-invalid': submitted && f.edate.errors }"
+              required>
+            <div *ngIf="submitted && f.edate.errors" class="invalid-feedback">
+              <div *ngIf="f.edate.errors.required">Checkout date is required</div>
+            </div>   
+            <label class="help-block text-danger" *ngIf="reportForm.errors">{{ reportForm.errors?.dates  }}</label>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="form-group">
+            <label for="txtFOC">FOC</label>
+            <select class="form-control" id="ddlZone" formControlName="foc" [(ngModel)]="foc">
+              <option *ngFor="let item of Focs" value={{item.datavalue}}>
+                {{item.datatext}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right">
+            <div class="form-group">
+              <button type="submit" class="btn btn-light color-btn btn-sm report_btn">Search</button> &nbsp;
+              <button type="reset"  class="btn btn-light color-btn btn-sm report_btn"(click)="resetForm()">Reset</button>
+            </div>
+          </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="showTable">   
+<br>
+    <!-- <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+        <h5 style="color:white">Reporting Dashboard</h5>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
+        <input class="form-control" id="myInput" type="text" placeholder="Search by name/role/email" [(ngModel)]="cfilter" (keyup)="GetUserByFilterOption()">
+      </div>
+    </div> -->
+    <div class="table-responsive" >
+      <table class="table table-bordered table-hover mb-2" id="my-table">
+        <thead>
+          <tr>
+            <th scope="row">Client Name </th>
+            <th scope="row">Location </th>
+            <th scope="row">Vehicle Type</th>
+            <th scope="row">Vehicle No.</th>
+            <th scope="row">Contact No.</th>
+            <th scope="row">Checked In Time </th>
+            <th scope="row">Checked Out Time</th>
+            <th scope="row">Amount</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of this.OverallReportDetail">
+          <tr>
+            <td>{{item.clientname}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.vehicletype}}</td>
+            <td>{{item.vehiclenumber}}</td>
+            <td>{{item.contactnumber}}</td>
+            <td>{{item.checkintime}}</td>
+            <td>{{item.checkouttime}}</td>
+            <td>{{item.totalamount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row row_color">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+        <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllRoleByPageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)"
+              title="First">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)"
+              title="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)"
+              title="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)"
+              title="Last">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+        </ul>
+        
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4 text-right">       
+        <!-- <button class="btn btn-light color-btn btn-sm " (click)="download_csv()" ><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download as Excel</button>&nbsp;
+        <button class="btn btn-light color-btn btn-sm " (click)="downloadPDF()" ><i class="fa fa-file-pdf-o" aria-hidden="true" (click)="downloadPDF()"></i>Download as PDF</button> -->
+        <img src="assets/pdf.png" class="download" (click)="downloadPDF()" title="download as PDF"/>&nbsp;
+        <img src="assets/excel.png" class="download" (click)="download_csv()" title="download as Excel" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>      
+    </div>
+  </div>

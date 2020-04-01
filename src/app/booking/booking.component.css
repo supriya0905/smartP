@@ -1,0 +1,19 @@
+#mainthing {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  #mainthing div {
+    display: inline-block;
+  }
+  .div_size{
+    padding:1%;
+    font-weight:bold;
+    font-size:16px
+  }
+  .div_card{
+    margin:0%;width:220px
+  }
+  .div_iteam{
+      text-decoration: underline;text-align: left;
+  }

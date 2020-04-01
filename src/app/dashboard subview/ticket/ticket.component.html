@@ -1,0 +1,181 @@
+<div class="containerCustom">
+    <div class="row">
+        <!-- <caption class="table-caption"><h4>Checkin Details</h4></caption> -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h4>Checkin Details</h4>
+            <div class="table-responsive table-fixed shadow mb-2 bg-white rounded">
+                <table class="table table-bordered table-hover grid-item--header">
+                    <thead>
+                        <tr>
+                            <th>Checkin Time</th>
+                            <th>Customer mobile number</th>
+                            <th>Total amount</th>
+                            <th>Vehicle number</th>
+                            <th>Vehicle type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <tr *ngFor="let item of this.CheckinDetail">
+                            <td>{{item.checkintime }}</td>
+                            <td>{{item.customermobilenumber}}</td>
+                            <td>{{item.totalamount}}</td>
+                            <td>{{item.vehiclenumber}}</td>
+                            <td>{{item.vehicletype}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" *ngIf="TotalCount > 0">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+                    <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllCameraByPageSize()">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="First">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Previous">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Next">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Last">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- checkout -->
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h4>Checkout Details</h4>
+            <!-- <caption class="table-caption"><h4>Checkin Details</h4></caption> -->
+            <div class="table-responsive table-fixed shadow mb-2 bg-white rounded">
+                <table class="table table-bordered table-hover grid-item--header">
+                    <thead>
+                        <tr>
+                            <th>Checkin Time</th>
+                            <th>Checkout Time</th>
+                            <th>Customer mobile number</th>
+                            <th>Total amount</th>
+                            <th>Vehicle number</th>
+                            <th>Vehicle type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <tr *ngFor="let item of this.CheckoutDetail">
+                            <td>{{item.checkintime }}</td>
+                            <td>{{item.checkouttime}}</td>
+                            <td>{{item.customermobilenumber}}</td>
+                            <td>{{item.totalamount}}</td>
+                            <td>{{item.vehiclenumber}}</td>
+                            <td>{{item.vehicletype}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" *ngIf="TotalCount > 0">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+                    <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllCameraByPageSize()">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="First">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Previous">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Next">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Last">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div *ngFor="let item of this.parkinglimit">
+            <div class="card  shadow bg-white rounded">
+                <div class="body">
+                    <h5 class="text-center">Bike Parking Limit</h5>
+                    <app-doughnutticket [tdata]="[item.totalbikeoccupied,item.totalbikevaccant]"></app-doughnutticket>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div *ngFor="let item of this.parkinglimit">
+            <div class="card  shadow bg-white rounded">
+                <div class="body">
+                    <h5 class="text-center">Car Parking Limit</h5>
+                    <app-doughnutticket [tdata]="[item.totalcaroccupied,item.totalcarvaccant]"></app-doughnutticket>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+</div>
+</div>

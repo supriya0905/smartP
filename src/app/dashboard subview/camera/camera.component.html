@@ -1,0 +1,318 @@
+<div class="containerCustom">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <select class="form-control" id="ddlClient" [(ngModel)]="ClientId" (change)="ClientChange()">
+                            <option value="0">Select Client</option>
+                            <option *ngFor="let item of Clients" value={{item.datavalue}}>
+                                {{item.datatext}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <!-- [disabled]="ClientId<=0" -->
+                        <select class="form-control" id="ddlZone" [(ngModel)]="ZoneId" (change)="ZoneChange()">
+                            <option value="0">Select Location</option>
+                            <option *ngFor="let item of Zone" value={{item.datatext}}>
+                                {{item.datatext}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <!-- [disabled]="ClientId<=0 || ZoneId==''"  -->
+                        <select class="form-control" id="ddlZone" id="ddlCamera" [(ngModel)]="CameraId" (change)="CameraChange()">
+                            <option value="0">Select Camera</option>
+                            <option *ngFor="let item of Camera" value={{item.dataitem}}>
+                                {{item.datatext}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                </div>
+            </div>
+
+            <div class="table-responsive ">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let ch of CustomHeader; index as i;">
+                                <div *ngIf="ch.IsSortable==true">
+                                    {{ch.ColumnNameLabel}}
+                                    <span class="spnRight">
+                                        <a (click)="SortColumn(ch.ColumnName,ch.ColumnSortClass,this.i)">
+                                            <i [ngClass]="ch.ColumnSortClass" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div *ngIf="ch.IsSortable==false">
+                                    {{ch.ColumnNameLabel}}
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <tr *ngFor="let item of CameraDetail">
+                            <td>{{item.ClientName}}</td>
+                            <td>{{item.ZoneId}}</td>
+                            <td>{{item.CameraId}}</td>
+                            <td>{{item.total_vacant_slots}}</td>
+                            <td>{{item.total_occupied_slots}}</td>
+                            <td>{{item.total_slots}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row row_color" *ngIf="TotalCount > 0">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+                    <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllCameraByPageSize()">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="First">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Previous">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Next">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+                        <li>
+                            &nbsp;
+                            <button class="btn btn-light color-btn btn-sm" title="Last">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </button>&nbsp;
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="card shadow bg-white rounded">
+                <img (deferLoad)="cameraslidemain.show = true" src="{{cameraslidemain.LiveCam}}" data-toggle="modal" data-target="#myModal"
+                    alt="" class="img-fluid img-content" />
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-light color-btn btn-sm btnLeftSlide" (click)="CameraSlidePrev()" title="Previous">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <label class="lblmarginpaging lblSlideMain row_color" for="paginglabel">
+                        <b class="row_color">{{cameraslidemain.CameraId}}</b>&nbsp;(&nbsp;{{cameraslidemain.currentindex+1}} of {{CameraDetail.length}}&nbsp;)</label>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-light color-btn btn-sm btnRightSlide" (click)="CameraSlideNext()" title="Next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- charts -->
+    <div class="row" *ngIf="SuperAdminLogin">
+        <div *ngFor="let item of this.newarray">
+            <div class="card chart shadow bg-white rounded" (click)="openModalWithClass(charttemplate,item.clientname,item.clientid,'0')">
+                <div class="card-header"><h5 class="text-center">{{item.clientname}}</h5></div>  
+                <div style="  background-color: rgb(22, 32, 44)">
+                <div class="card-body">                   
+                    <app-doughnutslot [sdata]="[item.occupiedcount,item.vacantcount]"></app-doughnutslot>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!SuperAdminLogin">
+        <div *ngFor="let item of this.newlocationarray">
+            <div class="card chart shadow bg-white rounded" (click)="openModalWithClass(charttemplate,item.clientname,item.clientid,item.ZoneId)">
+                    <div style="  background-color: rgb(22, 32, 44)">
+                <div class="card-body">
+                    <h5 class="text-center">{{item.ZoneId}}</h5>
+                    <app-doughnutslot [sdata]="[item.Occupiedcount,item.Vacantcount]"></app-doughnutslot>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- maps -->
+    <!-- <div class="row">
+        <div class="mapouter">
+            <div class="map-responsive">
+                <iframe width="1280" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=AMR%20tech%20park%2Cmidteck&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    style="margin-left: 20px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+            </div>
+        </div>
+    </div> -->
+    <!--camera modal -->
+</div>
+<div class="container-fluid modal fade bd-example-modal-lg" style=" max-width: 100vw;" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <div style="overflow: auto"> -->
+                    <table class="table modal_grid responsive table table-bordered shadow mb-2 bg-white rounded ">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Zone
+                                </td>
+                                <td class="td_styling">
+                                    {{cameraslidemain.ZoneId}}
+                                </td>
+                                <td>
+                                    Camera
+                                </td>
+                                <td class="td_styling">
+                                    {{cameraslidemain.CameraId}}
+                                </td>
+                                <td>
+                                    Total Slots
+                                </td>
+                                <td class="td_styling">
+                                    {{cameraslidemain.total_slots}}
+                                </td>
+                                <td>
+                                    Occupied Slots
+                                </td>
+                                <td class="occupied_color">
+                                    {{cameraslidemain.total_occupied_slots}}
+                                </td>
+                                <td>
+                                    Vaccant Slots
+                                </td>
+                                <td class="vacant_color">
+                                    {{cameraslidemain.total_vacant_slots}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- </div> -->
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" class="custom" id="result">
+                <img src="{{cameraslidemain.LiveCam}}" class="camera-modal" data-toggle="modal" data-target="#myModal" alt="" title="click  to zoom out">
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- chart modal -->
+<ng-template #charttemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Slot Detail</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <input type="text" [(ngModel)]="CameraEnf.ClientName" class="form-control" disabled>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                    <!-- [disabled]="ClientId<=0" -->
+                    <select class="form-control" [(ngModel)]="CameraEnf.ZoneId" (change)="ZoneChangeChart()">
+                        <option value="0">Select Location</option>
+                        <option *ngFor="let item of ZoneChart" value={{item.datatext}}>
+                            {{item.datatext}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                    <!-- [disabled]="ClientId<=0 || ZoneId==''"  -->
+                    <select class="form-control" [(ngModel)]="CameraEnf.CameraId" (change)="CameraChangeChart()">
+                        <option value="0">Select Camera</option>
+                        <option *ngFor="let item of CameraChart" value={{item.dataitem}}>
+                            {{item.datatext}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive table-fixed shadow mb-2 bg-white rounded" style="background-color:red">
+            <table class="table  table-hover ">
+                <thead>
+                    <tr style="color:black">
+                        <th>
+                            Slot No.
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Total Parked Time
+                        </th>
+                        <th>
+                            From Time
+                        </th>
+                        <th>
+                            Duration
+                        </th>
+                        <th>
+                            Latitude
+                        </th>
+                        <th>
+                            Longitude
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <tr *ngFor="let item of SlotDetailChart">
+                        <td>{{item.slotno}}</td>
+                        <td>{{item.status}}</td>
+                        <td>{{item.total_parked_time}}</td>
+                        <td>{{item.from_time}}</td>
+                        <td>{{item.duration}}</td>
+                        <td>{{item.latitude}}</td>
+                        <td>{{item.longitude}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+    </div>
+</ng-template>

@@ -1,0 +1,172 @@
+<div class="containerCustom">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)" title="New">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <span class="hdrlbl">Country</span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <input class="form-control" type="text" placeholder="Search by name/ISO code" [(ngModel)]="cfilter" (keyup)="GetCountryByFilterOption()">
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th *ngFor="let ch of CustomHeader; index as i;">
+                <div *ngIf="ch.IsSortable==true">
+                  {{ch.ColumnNameLabel}}
+                  <span class="spnRight">
+                    <a (click)="SortColumn(ch.ColumnName,ch.ColumnSortClass,this.i)">
+                      <i [ngClass]="ch.ColumnSortClass" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </div>
+                <div *ngIf="ch.IsSortable==false">
+                  {{ch.ColumnNameLabel}}
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of Countries">
+              <td>{{item.name}}</td>
+              <td>{{item.isocode}}</td>
+              <td>{{item.modifiedby}}</td>
+              <td>{{item.datestring | date:"dd/MM/yyyy"}}</td>
+              <td>
+                <a (click)="openModalWithClassEdit(template,item.id)" title="edit" class="grideditbtn">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                &nbsp;
+                <a (click)="openModalWithClassDelete(templatedelete,item.id)" title="delete" class="grideditbtn">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+        </table>
+      </div>
+      <!--end of .table-responsive-->
+    </div>
+    <div class="row row_color" *ngIf="TotalCount > 0">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+        <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllCountryByPageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)"
+              title="First">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)"
+              title="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)"
+              title="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)"
+              title="Last">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{CountryLabel}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="txtCountryName">Country Name</label><sup class="lblMandatory">*</sup>                                      
+            <input type="text" class="form-control" id="txtCountryName" [(ngModel)]="CountryDetail.name"  placeholder="Country Name">
+        </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="form-group">
+    <label for="txtCountryISOcode">Country ISO code</label><sup class="lblMandatory">*</sup>                                    
+    <input type="text" class="form-control" id="txtCountryISOcode" [(ngModel)]="CountryDetail.isocode"  placeholder="Country ISO code">
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm"  *ngIf="mode==1 && isPushed" (click)="unPushMe()" >Save</button>  
+    <button type="button" class="btn btn-light color-btn btn-sm"  *ngIf="mode==1 && !isPushed" (click)="SaveCountry()">Save</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateCountry()" *ngIf="mode==2">Update</button>    
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
+
+<!--delete modal -->
+<ng-template #templatedelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Country</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label for="usr">Are you sure to delete Country
+            <b>{{CountryDetail.name}}</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteCountry()">Delete</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>

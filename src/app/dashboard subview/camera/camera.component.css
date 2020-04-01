@@ -1,0 +1,245 @@
+  .occupied_color{
+  background-color: rgb(238, 100, 95);
+  }
+  .vacant_color{
+  background-color: rgb(159, 194, 85);
+  }
+   .td.modal_grid{
+    padding: .95rem;
+  }
+  .fix-width{
+    width:1200px;
+  }
+  
+  .slot-tools-card{
+    width: 250px;
+    height: 200px;
+    cursor: pointer;
+  }
+  .card{  
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  .text-center {
+    text-align: center!important;
+    margin: 10px !important;
+  }
+  table caption {
+    padding: .5em 0;
+  }
+  
+  @media screen and (max-width: 767px) {
+    table caption {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  
+  .containerCustom{
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%; 
+  }
+  
+  .spnRight{
+    float: right;
+    cursor: pointer;
+  }
+  
+  input[type=checkbox] {
+    display: none;
+  }
+  
+  .container img {
+    /* margin: 100px; */
+    transition: transform 0.25s ease;
+    cursor: zoom-in;
+  }
+  
+  input[type=checkbox]:checked ~ label > img {
+    transform: scale(7.5);
+    cursor: zoom-out;
+    width: 269px;
+    padding: 126px 95px 92px 0px;
+    float: left;
+    cursor: zoom-out;
+  
+  }
+  .active-camera {
+    height: 23rem;
+    width: 22.6rem;
+    overflow: hidden;
+  }
+  div img {
+    width: 100%;
+    min-height: 100%;
+    cursor: pointer;
+  }
+  .chart-data{
+    margin-left: 6rem;
+  }
+  .modal-full {
+    min-width: 100%;
+    margin: 0;
+  }
+
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 80%;
+    }
+  }
+
+  
+  .modal-body.custom{
+    position: relative !important;
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+  }
+  .camera-modal{
+    height: 35.2rem;
+    cursor: pointer;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  .card-header{
+padding:0px
+  }
+  .card-body{
+    padding-top:12px;
+    background-color: rgba(0, 77, 66,0.3) ;
+  }
+  .card-body:hover{
+
+    background-color: rgb(0,77,66)
+  }
+  .card{
+    border: 2px solid rgb(0,78,67);
+  }
+  .table-responsive{
+    overflow-y:scroll;
+    height: 296px;
+    background-color: rgba(0, 77, 66,0.3) ; 
+    border: 2px solid rgb(0,78,67);
+    }
+    .table{
+      border: 2px solid rgb(0,78,67);
+    }
+    thead{
+      color: white;
+      font-size: 13px;
+      font-weight: normal;
+    }
+    tbody{
+      background-color: rgb(22, 32, 44)
+    }
+  
+  /* Slider */
+  .card.carousel {
+    margin: 0 auto;
+  }
+  .card .carousel-item {
+    height: 351px;
+  }
+  .card .carousel-caption {
+    padding: 0;
+    right: 0;
+    left: 0;
+    color: #3d3d3d;
+  }
+  .card .carousel-caption h3 {
+    color: #3d3d3d;
+  }
+  .card .carousel-caption p {
+    line-height: 30px;
+  }
+  .card .carousel-caption .col-sm-3 {
+    display: flex;
+    align-items: center;
+  }
+  .card .carousel-caption .col-sm-9 {
+    text-align: left;
+  }
+  .navi a {
+      text-decoration:none;
+  }
+  a > .ico {
+      background-color: grey;
+      padding: 10px;
+      
+  }
+  a:hover > .ico {
+      background-color: #666;
+  }
+  .img-content{
+    height: 352px;
+    padding-top: 0px;
+  }
+  .parent {
+    width: 100%;
+  }
+  
+  .child {
+    display: inline-block;  
+    margin: 2px;
+  }
+  
+  .btnRightSlide{
+    float: left;
+    margin-top: 25px;
+  }
+  
+  .lblSlideMain{
+    margin-top: 25px;
+    text-align: center;
+    align-content: center;
+  }
+  
+  .btnLeftSlide{
+    float: right;
+    margin-top: 25px;
+  }
+  .card.chart {
+    margin-left: 16px;
+    margin-bottom: 16px;
+  }
+/* map */
+.mapouter {
+  text-align: right;
+  /* height: 362px; */
+  width: 1500px;
+}
+
+.map-responsive {
+  overflow: hidden;
+  padding-bottom:30%; 
+  position: relative;
+  height: 0px;
+}
+
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+

@@ -1,0 +1,30 @@
+import{CustomDropDown}from '../model/CustomDropDown';
+export class Location{
+    id:number;
+    clientid:number;
+    description:string;
+    countryid:number;
+    stateid:number;
+    cityid:number;
+    latitude:string;
+    longitude:string;
+    zip:string;
+    createdby:string;
+    createddate:string;
+    modifiedby:string;
+    modifieddate:Date;
+    isactive:boolean;
+    clientparkingtypeid:number;
+    onlinebooking:boolean;
+    clientname:string;
+    countryname:string;
+    statename:string;
+    cityname:string;
+    parkingtype:string;
+    totalcount:boolean;
+    clients:CustomDropDown[]=[];
+    clientparkingtypes:CustomDropDown[]=[];
+    cities:CustomDropDown[]=[];
+    states:CustomDropDown[]=[];
+    countries:CustomDropDown[]=[];
+}

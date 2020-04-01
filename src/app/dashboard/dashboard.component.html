@@ -1,0 +1,167 @@
+<main *ngIf="luser.ParkingTypes.length==1" >
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                <app-all></app-all>   
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+</main>
+<main *ngIf="luser.ParkingTypes.length==2">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+      
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">{{luser.ParkingTypes[1].datatext}}</label>
+      
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+      
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+</main>
+<main *ngIf="luser.ParkingTypes.length==3">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+      
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">{{luser.ParkingTypes[1].datatext}}</label>
+      
+        <input id="tab3" type="radio" name="tabs">
+        <label for="tab3">{{luser.ParkingTypes[2].datatext}}</label>
+      
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+      
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[2].datatext}}
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+        
+</main>
+<main *ngIf="luser.ParkingTypes.length==4">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">{{luser.ParkingTypes[0].datatext}}</label>
+      
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">{{luser.ParkingTypes[1].datatext}}</label>
+      
+        <input id="tab3" type="radio" name="tabs">
+        <label for="tab3">{{luser.ParkingTypes[2].datatext}}</label>
+
+        <input id="tab4" type="radio" name="tabs">
+        <label for="tab4">{{luser.ParkingTypes[3].datatext}}</label>
+      
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[0].datatext}}
+        </section>
+        <section id="content1" *ngIf="luser.ParkingTypes[0].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+      
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[1].datatext}}
+        </section>
+        <section id="content2" *ngIf="luser.ParkingTypes[1].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Camera'">
+                <app-camera></app-camera>
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[2].datatext}}
+        </section>
+        <section id="content3" *ngIf="luser.ParkingTypes[2].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+
+        <section id="content4" *ngIf="luser.ParkingTypes[3].datatext=='Camera'">
+        <app-camera></app-camera>
+        </section>
+        <section id="content4" *ngIf="luser.ParkingTypes[3].datatext=='Sensor'">
+                <app-all></app-all> 
+        </section>
+        <section id="content4" *ngIf="luser.ParkingTypes[3].datatext=='Meter'">
+                selected tab is {{luser.ParkingTypes[3].datatext}}
+        </section>
+        <section id="content4" *ngIf="luser.ParkingTypes[3].datatext=='Ticketing App'">
+                <app-ticket></app-ticket>
+        </section>
+        
+</main>
+

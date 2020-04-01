@@ -1,0 +1,152 @@
+
+.td_styling{
+  background-color: #F9F9F9
+  }
+  .occupied_color{
+  background-color: rgb(238, 100, 95);
+  }
+  .vacant_color{
+  background-color: rgb(159, 194, 85);
+  }
+   .td.modal_grid{
+    padding: .95rem;
+  }
+  .fix-width{
+    width:1200px;
+  }
+  
+  .slot-tools-card{
+  /* margin: 20px; */
+    width: 250px;
+    height: 200px;
+    cursor: pointer;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  .text-center {
+    text-align: center!important;
+    margin: 10px !important;
+  }
+  table caption {
+    padding: .5em 0;
+  }
+  
+  @media screen and (max-width: 767px) {
+    table caption {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  
+  .containerCustom{
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    
+  }
+  
+  .spnRight{
+    float: right;
+    cursor: pointer;
+  }
+  
+  input[type=checkbox] {
+    display: none;
+  }
+  
+  .container img {
+    /* margin: 100px; */
+    transition: transform 0.25s ease;
+    cursor: zoom-in;
+  }
+  
+  input[type=checkbox]:checked ~ label > img {
+    transform: scale(7.5);
+    cursor: zoom-out;
+    width: 269px;
+    padding: 126px 95px 92px 0px;
+    float: left;
+    cursor: zoom-out;
+  
+  }
+  .active-camera {
+    height: 23rem;
+    /* margin-left: -1rem; */
+    width: 22.6rem;
+      /* position: relative;  */
+      overflow: hidden;
+  /* float: right; */
+  
+  }
+  div img {
+    width: 100%;
+    min-height: 100%;
+    cursor: pointer;
+  }
+  .chart-data{
+    margin-left: 6rem;
+  }
+  .modal-full {
+    min-width: 100%;
+    margin: 0;
+  }
+  
+  .modal-full .modal-content {
+    min-height: 100vh;
+  }
+  /* .modal-lg {
+    max-width: 80% !important;
+  } */
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 80%;
+    }
+  }
+  
+  .modal-body.custom{
+    position: relative !important;
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+  }
+  .camera-modal{
+    height: 35.2rem;
+    cursor: pointer;
+  }
+  h2 {
+    text-align: center;
+  }
+  @media screen and (max-width: 767px) {
+    table caption {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  .spnRight{
+    float: right;
+    cursor: pointer;
+  }
+  .grid-item--header {
+    height: 100px;
+    min-height: 100px;
+    position: sticky;
+    position: -webkit-sticky;
+    background: white;
+    top: 0;
+  }
+  .card {
+    /* margin-left: 28px; */
+    margin-top: 15px;
+    margin-bottom: 16px;
+    width: 297px;
+  }

@@ -1,0 +1,176 @@
+<div class="containerCustom">
+  <div class="card-body">        
+          <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                          <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)" title="New"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                          &nbsp;<button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                  </div> 
+                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"><span class="hdrlbl">Modules</span></div>                 
+                      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    
+                    
+                              <input class="form-control placeholder_size" type="text" placeholder="Search by name" [(ngModel)]="cfilter" (keyup)="GetModuleByFilterOption()">
+                          </div>
+                     
+                       
+          </div>
+          <div class="col-xs-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">       
+                      <thead>
+                        <tr>
+                          <th *ngFor="let ch of CustomHeader; index as i;">
+                                  <div *ngIf="ch.IsSortable==true">
+                                          {{ch.ColumnNameLabel}}<span  class="spnRight"><a (click)="SortColumn(ch.ColumnName,ch.ColumnSortClass,this.i)"><i [ngClass]="ch.ColumnSortClass" aria-hidden="true"></i></a></span>
+                                      </div>
+                                      <div *ngIf="ch.IsSortable==false">
+                                              {{ch.ColumnNameLabel}}
+                                          </div>
+                          </th>                           
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of Modules">
+                              <td>{{item.modulename}}</td>
+                              <td>{{item.pagelink}}</td>
+                              <td>{{item.childmenu}}</td>
+                              <td>{{item.sortorder}}</td>
+                              <td>{{item.createdby}}</td>
+                              <td>{{item.datestring | date:"dd/MM/yyyy"}}</td>
+                              <td>
+                              <a (click)="openModalWithClassEdit(template,item.moduleid)" title="edit" class="grideditbtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </a>
+                              &nbsp;
+                              <a (click)="openModalWIthClassDelete(templatedelete,item.moduleid,item.modulename)" title="delete" class="grideditbtn"><i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>                              
+                              </td>
+                        </tr>                          
+                    </table>
+                  </div><!--end of .table-responsive-->
+                </div>
+                <div class="row row_color" *ngIf="TotalCount > 0">
+                      <div class="col-sm-4 col-md-4 col-lg-4">
+                              <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+                              <select id="ddlpagesize" [(ngModel)] = "psize" (change) = "loadAllModulesByPageSize()">
+                                  <option value="10">10</option>
+                                  <option value="20">20</option>
+                                  <option value="50">50</option>
+                                  <option value="100">100</option>
+                              </select>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4">
+                        <ul class="pagination justify-content-center">    
+                            <li class="page-item">
+                              &nbsp;<button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)" title="First"><i class="fa fa-angle-double-left"  aria-hidden="true"></i></button>&nbsp;
+                                </li>
+                                <li>
+                                  &nbsp;<button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)" title="Previous"><i class="fa fa-angle-left"  aria-hidden="true"></i></button>&nbsp;
+                                </li>
+                                <li>
+                                  &nbsp;<label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+                                </li>
+                                <li>
+                                  &nbsp;<button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)" title="Next"><i class="fa fa-angle-right"  aria-hidden="true"></i></button>&nbsp;
+                                </li>
+                                <li>
+                                  &nbsp;<button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)" title="Last"><i class="fa fa-angle-double-right"  aria-hidden="true"></i></button>&nbsp;
+                                </li>
+                        
+                          </ul>
+                          </div>
+                          <div class="col-sm-4 col-md-4 col-lg-4">
+                                  <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+                              </div>
+              </div>
+  </div>
+</div>
+
+   <!-- modal -->
+   <ng-template #template>
+          <div class="modal-header">
+          <h4 class="modal-title pull-left">{{ModuleModalLabel}}
+          </h4>
+         
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+         
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="txtModuleName">Module Name</label><sup class="lblMandatory">*</sup>                                     
+                            <input *ngIf="mode==1" type="text" class="form-control" id="txtModuleName" [(ngModel)]="ModuleDetail.modulename"  placeholder="Module Name">
+                            <input *ngIf="mode==2" type="text" class="form-control" id="txtModuleName" [(ngModel)]="ModuleDetail.modulename"  placeholder="Module Name" disabled>
+                        </div>
+                  </div>                 
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="txtPageLink">Page Link</label><sup class="lblMandatory" *ngIf="ModuleDetail.childmenu==false">*</sup>                                     
+                            <input type="text" class="form-control" id="txtPageLink" [(ngModel)]="ModuleDetail.pagelink"  placeholder="Page Link" *ngIf="ModuleDetail.childmenu==false">
+                            <input type="text" class="form-control" id="txtPageLink" placeholder="Page Link" *ngIf="ModuleDetail.childmenu==true" disabled>
+                        </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="ddlSortOrder">Sort Order</label><sup class="lblMandatory">*</sup>
+                            <select class="form-control" id="ddlSortOrder" [(ngModel)]="ModuleDetail.sortorder">
+                                <option value="0">Select SortOrder</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                            </select>
+                        </div>
+                  </div>  
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="chkHSM">Having Sub Module</label>
+                            <input id="chkHSM" type="checkbox" [(ngModel)]="ModuleDetail.childmenu" class="chksubmenu" />
+                        </div>
+                  </div>              
+              </div>            
+              note&nbsp;:-&nbsp;<small>field marked as (<span class="lblMandatory">*</span>) are mandatory</small>        
+          </div>
+          <div class="modal-footer"> 
+          <button type="button" class="btn btn-light color-btn btn-sm" (click)="unPushMe()" *ngIf="mode==1 && isPushed" >Save</button>
+          <button type="button" class="btn btn-light color-btn btn-sm" (click)="SaveModule()" *ngIf="mode==1 && !isPushed">Save</button>        
+          <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateModule()" *ngIf="mode==2">Update</button>    
+          <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>   
+          </div>
+          </ng-template>
+
+           <!--delete modal -->
+           <ng-template #templatedelete>
+                  <div class="modal-header">
+                  <h4 class="modal-title pull-left">Delete Module</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="container-fluid">
+                  <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                  <label for="usr">Are you sure to delete module <b>{{ModuleName}}</b> </label>
+                  </div>       
+                  </div>      
+                  </div>
+                  </div>
+                  <div class="modal-footer">       
+                  <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteModule()">Delete</button>     
+                  <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>   
+                  </div>
+                  </ng-template>

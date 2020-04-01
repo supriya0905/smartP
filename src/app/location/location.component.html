@@ -1,0 +1,249 @@
+<div class="containerCustom">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <button type="button" title="new" class="btn btn-light color-btn btn-sm" (click)="openModalWithClass(template)" title="New">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-light color-btn btn-sm" (click)="RefreshGrid()" title="Reload">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <span class="hdrlbl">Locations</span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <input class="form-control" type="text" placeholder="Search by name/role/email">
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table  table-hover">
+          <thead>
+            <tr>
+              <th *ngFor="let ch of CustomHeader; index as i;">
+                <div *ngIf="ch.IsSortable==true">
+                  {{ch.ColumnNameLabel}}
+                  <span class="spnRight">
+                    <a (click)="SortColumn(ch.ColumnName,ch.ColumnSortClass,this.i)">
+                      <i [ngClass]="ch.ColumnSortClass" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </div>
+                <div *ngIf="ch.IsSortable==false">
+                  {{ch.ColumnNameLabel}}
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of Locations">
+                              <td>{{item.clientname}}</td>
+                              <td>{{item.countryname}}</td>
+                              <td>{{item.statename}}</td>
+                              <td>{{item.cityname}}</td>
+                              <td>{{item.latitude}}</td>
+                              <td>{{item.longitude}}</td>
+                              <td>{{item.zip}}</td>
+                              <td>{{item.description}}</td>
+                              <td>{{item.parkingtype}}</td>
+                              <td>
+                              <a (click)="openModalWithClassEdit(template,item.id)" title="edit" class="grideditbtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </a>
+                              &nbsp;
+                              <a (click)="openModalWIthClassDelete(templatedelete,item.id)" title="delete" class="grideditbtn"><i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>                              
+                              </td>
+                        </tr>                          
+    </tbody>
+    </table>
+      </div>
+      <!--end of .table-responsive-->
+    </div>
+    <div class="row" *ngIf="TotalCount > 0">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label for="ddlpagesize">Page size&nbsp;:&nbsp;</label>
+        <select id="ddlpagesize" [(ngModel)]="psize" (change)="loadAllLoactionByPageSize()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationFirst()" (click)="GoToPage(1)" title="First">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationPrev()" (click)="GoToPage(2)" title="Previous">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <label class="lblmarginpaging" for="paginglabel">Page {{CurrentPage}} of {{TotalPages}}</label>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationNext()" (click)="GoToPage(3)" title="Next">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+          <li>
+            &nbsp;
+            <button class="btn btn-light color-btn btn-sm" [disabled]="CheckPaginationLast()" (click)="GoToPage(4)" title="Last">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>&nbsp;
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Showing&nbsp;{{pfrom}}&nbsp;to&nbsp;{{pto}}&nbsp;of&nbsp;{{TotalCount}}&nbsp;records</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{LocationLabel}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="ddlclient">Client</label>
+              <sup class="lblMandatory">*</sup>
+              <select class="form-control" id="ddlclient" [(ngModel)]="LocationDetail.clientid">
+                <option value="0">Select Client</option>
+                <option *ngFor="let item of LocationDetail.clients" value={{item.datavalue}}>
+                  {{item.datatext}}
+                </option>
+              </select>
+            </div>
+          </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="ddlcountry">Country</label>
+          <sup class="lblMandatory">*</sup>
+          <select class="form-control" id="ddlcountry" [(ngModel)]="LocationDetail.countryid" (change)="CountryChange()">
+            <option value="0">Select Country</option>
+            <option *ngFor="let item of LocationDetail.countries" value={{item.datavalue}}>
+              {{item.datatext}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="ddlState">State</label><sup class="lblMandatory">*</sup>
+              <select class="form-control" id="ddlState" [(ngModel)]="LocationDetail.stateid" (change)="StateChange()">
+                <option value="0">Select State</option>
+                <option *ngFor="let item of LocationDetail.states" value={{item.datavalue}}>
+                  {{item.datatext}}
+                </option>
+              </select>
+        </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="ddlCity">City</label><sup class="lblMandatory">*</sup>
+              <select class="form-control" id="ddlCity" [(ngModel)]="LocationDetail.cityid">
+                <option value="0">Select City</option>
+                <option *ngFor="let item of LocationDetail.cities" value={{item.datavalue}}>
+                  {{item.datatext}}
+                </option>
+              </select>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label for="txtLatitude">Latitude</label><sup class="lblMandatory">*</sup>                                    
+                <input type="text" class="form-control" id="txtLatitude" [(ngModel)]="LocationDetail.latitude"  placeholder="Latitude">
+            </div>
+            </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="txtLongitude">Longitude</label><sup class="lblMandatory">*</sup>                                    
+          <input type="text" class="form-control" id="txtLongitude" [(ngModel)]="LocationDetail.longitude"  placeholder="Longitude">
+      </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="txtZIP">ZIP Code</label><sup class="lblMandatory">*</sup>                                    
+              <input type="text" class="form-control" id="txtZIP" [(ngModel)]="LocationDetail.zip" placeholder="ZIP">
+          </div>
+          </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label for="ddlPtype">Client Parkingtype</label><sup class="lblMandatory">*</sup>
+          <select class="form-control" id="ddlPtype" [(ngModel)]="LocationDetail.clientparkingtypeid">
+            <option value="0">Select Parkingtype</option>
+            <option *ngFor="let item of LocationDetail.clientparkingtypes" value={{item.datavalue}}>
+              {{item.datatext}}
+            </option>
+          </select>
+  </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                <label for="taDescription">Description</label>
+                <textarea id="taDescription" [(ngModel)]="LocationDetail.description" placeholder="Description" class="form-control"></textarea>                   
+            </div>
+      </div> 
+    </div>
+    note&nbsp;:-&nbsp;
+    <small>field marked as (
+      <span class="lblMandatory">*</span>) are mandatory</small>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="SaveLocation()" *ngIf="mode==1">Save</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="UpdateLocation()" *ngIf="mode==2">Update</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
+
+<!--delete modal -->
+<ng-template #templatedelete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete User</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label for="usr">Are you sure to delete 
+            <b>{{this.LocationDetail.clientname}}</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="DeleteLocation()">Delete</button>
+    <button type="button" class="btn btn-light color-btn btn-sm" (click)="CancelModal()">Cancel</button>
+  </div>
+</ng-template>
